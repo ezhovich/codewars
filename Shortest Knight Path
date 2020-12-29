@@ -1,0 +1,36 @@
+def get_moves(cell):
+    res = set()
+    for x in [(1, 2), (2, 1), (2, -1), (1, -2), (-1, -2), (-2, -1), (-2, 1), (-1, 2)]:
+        res.add((cell[0] + x[0], cell[1] + x[1]))
+    return res
+
+
+def knight(p1, p2):
+    start = (ord(p1[0]) - ord('a'), int(p1[1]) - 1)
+    end = (ord(p2[0]) - ord('a'), int(p2[1]) - 1)
+    board = set()
+    for i in range(8):
+        for j in range(8):
+            board.add((i, j))
+    current_cells = {start}
+    visited = {start}
+    counter = 0
+    while True:
+        counter += 1
+        new_cells = set()
+        for cell in current_cells:
+            for elem in (get_moves(cell) & board):
+                if elem not in visited:
+                    new_cells.add(elem)
+                    visited.add(elem)
+                if elem == end:
+                    return counter
+        current_cells = new_cells
+
+
+
+
+
+
+
+print(knight('a1', 'f1'))
