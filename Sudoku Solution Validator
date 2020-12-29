@@ -1,0 +1,10 @@
+def validSolution(board):
+    def get_block(board, x, y):
+        return [board[x + i][y + j] for i in range(3) for j in range(3)]
+
+    correct = {x for x in range(1, 10)}
+    for row in board + list(zip(*board)) + [get_block(board, i, j) for i in range(0, 7, 3) for j in range(0, 7, 3)]:
+        if set(row) != correct:
+            return False
+
+    return True
